@@ -1,0 +1,25 @@
+# Ignore IntelliJ IDEA files
+.idea/
+
+# Ignore Gradle project-specific cache directory
+.gradle/**
+
+# Ignore Gradle wrapper files
+gradle/
+gradlew
+gradlew.bat
+settings.gradle
+
+# Ignore Gradle build output directory
+build/
+
+# Ignore out folder
+out/
+
+# Ignore Idea project specific directory
+.idea
+.DS_Store
+.gitattributes
+
+# Ignore macOS files
+*.DS_Store
