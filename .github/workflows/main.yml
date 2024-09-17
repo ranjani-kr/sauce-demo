@@ -12,7 +12,22 @@ jobs:
     - uses: actions/checkout@v4
     - name: Install Chrome
       run: sudo apt-get install -y google-chrome-stable  # Ensures Chrome is installed
-      
+
+    - name: Check Chrome version
+      run: google-chrome --version
+
+    - name: Check ChromeDriver version
+      run: chromedriver --version
+
+    - name: Start xvfb (virtual display)
+      run: | 
+            sudo apt-get install -y xvfb
+            Xvfb :99 -ac &
+            export DISPLAY=:99
+
+    - name: Build and Test with Gradle
+      run: ./gradlew clean build -Dwebdriver.chrome.args="--headless" --stacktrace --info --warning-mode all
+
     - name: Set up JDK 20
       uses: actions/setup-java@v4
       with:
