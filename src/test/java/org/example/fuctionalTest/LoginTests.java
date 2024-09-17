@@ -28,10 +28,11 @@ public class LoginTests {
         }
     }
     @Test
-    public void validLoginTest() {
+    public void validLoginTest() throws InterruptedException {
         // Use non-static methods
         launcherPage.enterLoginDetails("standard_user", "secret_sauce");
         HomePage homePage = launcherPage.clickOnLoginButton();
+        Thread.sleep(3000);
 
         // Assert using non-static methods from HomePage
         String pageTitle = homePage.getPageTitle();
