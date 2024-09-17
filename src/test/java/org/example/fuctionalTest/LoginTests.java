@@ -36,7 +36,7 @@ public class LoginTests {
         // Assert using non-static methods from HomePage
         String pageTitle = homePage.getPageTitle();
         Assert.assertEquals(pageTitle, "Swag Labs", "Login failed or incorrect page title");
-        System.out.println("github actions verified successfully");
+        System.out.println("Github actions verified successfully");
     }
 
 }
