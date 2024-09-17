@@ -3,6 +3,7 @@ package org.example.drivers;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -19,6 +20,14 @@ public class DriverCreator {
                 return new EdgeDriver();
             default:
                 WebDriverManager.chromedriver().setup(); // Automatically downloads and sets up ChromeDriver
+
+                // Set Chrome to run in headless mode
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("--headless");  // Enable headless mode
+                options.addArguments("--disable-gpu");  // Disable GPU rendering
+                options.addArguments("--no-sandbox");  // Bypass OS security model
+                options.addArguments("--disable-dev-shm-usage");  // Overcome limited resource problems
+
                 return new ChromeDriver();
         }
     }
