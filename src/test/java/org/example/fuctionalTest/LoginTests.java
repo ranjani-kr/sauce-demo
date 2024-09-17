@@ -33,7 +33,6 @@ public class LoginTests {
         launcherPage.enterLoginDetails("standard_user", "secret_sauce");
         HomePage homePage = launcherPage.clickOnLoginButton();
         Thread.sleep(3000);
-
         // Assert using non-static methods from HomePage
         String pageTitle = homePage.getPageTitle();
         Assert.assertEquals(pageTitle, "Swag Labs", "Login failed or incorrect page title");
