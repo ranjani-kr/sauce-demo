@@ -27,6 +27,8 @@ public class DriverCreator {
                 options.addArguments("--disable-gpu");  // Disable GPU rendering
                 options.addArguments("--no-sandbox");  // Bypass OS security model
                 options.addArguments("--disable-dev-shm-usage");  // Overcome limited resource problems
+                options.addArguments("--remote-debugging-port=9222");  // Required for some environments
+                options.addArguments("--window-size=1920,1080");  // Set screen size (optional but useful)git
 
                 return new ChromeDriver();
         }
