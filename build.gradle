@@ -19,8 +19,21 @@ dependencies {
     implementation 'io.github.bonigarcia:webdrivermanager:5.9.2'
 }
 
-test {
-    useTestNG()
-
+// Apply a specific Java toolchain to ease working on different environments.
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
+test {
+    useTestNG()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+task runTest(type: Test) {
+    useTestNG()
+    include "src/test/java/org/example/fuctionalTest/LoginTests.java"
+}
