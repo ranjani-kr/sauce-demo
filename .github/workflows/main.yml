@@ -10,15 +10,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Install Chrome
+      run: sudo apt-get install -y google-chrome-stable  # Ensures Chrome is installed
+      
     - name: Set up JDK 20
       uses: actions/setup-java@v4
       with:
         java-version: '20'
         distribution: 'adopt'
-    - name: Install Chrome
-      run: sudo apt-get install -y google-chrome-stable
+        
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+      
     - name: Build with Gradle
       run: ./gradlew build --stacktrace --info --warning-mode all
- 
