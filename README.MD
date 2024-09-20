@@ -78,9 +78,12 @@ You can run the E2E tests using two methods: via an IDE or the command line.
 2. **Navigate into the cloned directory:**
     ```bash
    cd yourrepository
-3. **Navigate into the cloned directory:**
+3. **To run all the tests:**
     ```bash
    ./gradlew test
+4. *To run individual test **nto the cloned directory:**
+    ```bash
+   ./gradlew test --tests "org.example.e2eTests.BuyAProductTest"
 
 ## Project Structure
 DemoProject
