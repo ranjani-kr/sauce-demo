@@ -29,15 +29,14 @@ public class LoginTests {
     @DataProvider(name = "loginData")
     public Object[][] loginDataProvider() {
         return new Object[][] {
-                {"standard_user", "invalid_password", "Epic sadface: Username and password do not match any user in this service"}, // Valid username, invalid password
-                {"invalid_user", "secret_sauce", "Epic sadface: Username and password do not match any user in this service"}, // Invalid username, valid password
-                {"invalid_user", "invalid_password", "Epic sadface: Username and password do not match any user in this service"}, // Invalid username, invalid password
-                {"standard_user", "secret_sauce", "Swag Labs"} // Valid username, valid password
+                {"standard_user", "invalid_password", "Epic sadface: Username and password do not match any user in this service"},
+                {"invalid_user", "secret_sauce", "Epic sadface: Username and password do not match any user in this service"},
+                {"invalid_user", "invalid_password", "Epic sadface: Username and password do not match any user in this service"},
+                {"standard_user", "secret_sauce", "Swag Labs"}
         };
     }
-
     @Test(dataProvider = "loginData")
-    public void loginTest(String username, String password, String expectedMessage) {
+    public void loginTest(String username, String password, String expectedMessage) throws InterruptedException {
         launcherPage.enterLoginDetails(username, password);
         HomePage homePage = launcherPage.clickOnLoginButton();
 

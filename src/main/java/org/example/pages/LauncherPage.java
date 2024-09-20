@@ -9,8 +9,7 @@ public class LauncherPage {
     private final By username = By.id("user-name");
     private final By password = By.id("password");
     private final By loginButton = By.id("login-button");
-    private final By loginErrorMessage = By.xpath("//h3[contains(text(), 'Epic sadface')]");
-
+    private final By loginErrorMessage = By.xpath("//h3[@data-test='error']");
     public LauncherPage(WebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -24,6 +23,7 @@ public class LauncherPage {
 
         webDriver.findElement(password).clear();
         webDriver.findElement(password).sendKeys(pwd);
+
     }
     public HomePage clickOnLoginButton() {
         webDriver.findElement(loginButton).click();
