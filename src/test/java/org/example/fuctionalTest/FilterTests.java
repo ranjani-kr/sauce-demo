@@ -15,6 +15,13 @@ import java.util.stream.Collectors;
 
 public class FilterTests {
     private WebDriver webDriver;
+    public final String LAUNCH_PAGE_URL = "https://www.saucedemo.com/";
+    String username = "standard_user";
+    String password = "secret_sauce";
+    String LOW_TO_HIGH = "Price (low to high)";
+    String A_Z = "Name (A to Z)";
+    String Z_A = "Name (Z to A)";
+    String HIGH_LOW = "Price (high to low)";
     private LauncherPage launcherPage;
     private HomePage homePage;
 
@@ -22,13 +29,13 @@ public class FilterTests {
     public void setUp() {
         webDriver = new DriverCreator().create("chrome");
         launcherPage = new LauncherPage(webDriver);
-        launcherPage.navigateTo("https://www.saucedemo.com/");
-        launcherPage.enterLoginDetails("standard_user", "secret_sauce");
+        launcherPage.navigateTo(LAUNCH_PAGE_URL);
+        launcherPage.enterLoginDetails(username, password);
         homePage = launcherPage.clickOnLoginButton(); // Initialize homePage after login
     }
     @Test
     public void verifySortHighToLow() {
-        homePage.chooseFilterValue("Price (high to low)");
+        homePage.chooseFilterValue(HIGH_LOW);
         List<Double> prices = homePage.getProductPrices();
 
         // Check if prices are sorted in descending order
@@ -38,7 +45,7 @@ public class FilterTests {
 
     @Test
     public void verifySortLowToHigh() {
-        homePage.chooseFilterValue("Price (low to high)");
+        homePage.chooseFilterValue(LOW_TO_HIGH);
         List<Double> prices = homePage.getProductPrices();
 
         // Check if prices are sorted in ascending order
@@ -47,7 +54,7 @@ public class FilterTests {
     }
     @Test
     public void verifySortAZ() {
-        homePage.chooseFilterValue("Name (A to Z)");
+        homePage.chooseFilterValue(A_Z);
         List<String> productNames = homePage.getProductNames();
 
         // Check if product names are sorted alphabetically (A to Z)
@@ -56,7 +63,7 @@ public class FilterTests {
     }
     @Test
     public void verifySortZA() {
-        homePage.chooseFilterValue("Name (Z to A)");
+        homePage.chooseFilterValue(Z_A);
         List<String> productNames = homePage.getProductNames();
 
         // Check if product names are sorted in reverse alphabetical order (Z to A)

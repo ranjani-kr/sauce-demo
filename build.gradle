@@ -17,6 +17,8 @@ dependencies {
     testImplementation 'org.apache.logging.log4j:log4j-core:2.23.1'
     implementation 'org.seleniumhq.webdriver:webdriver-selenium:0.9.7376'
     implementation 'io.github.bonigarcia:webdrivermanager:5.9.2'
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -35,5 +37,6 @@ test {
 
 task runTest(type: Test) {
     useTestNG()
-    include "src/test/java/org/example/fuctionalTest/LoginTests.java"
+    //include "src/test/java/org/example/fuctionalTest/LoginTests.java"
+    include"src/test/java/org/example/e2eTests/BuyAProductTest.java"
 }
