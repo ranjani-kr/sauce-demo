@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class LoginTests {
@@ -15,27 +16,40 @@ public class LoginTests {
 
     @BeforeTest
     public void setUp() {
-        // Initialize WebDriver and pass it to LauncherPage
         webDriver = new DriverCreator().create("chrome");
         launcherPage = new LauncherPage(webDriver);
         launcherPage.navigateTo("https://www.saucedemo.com/");
     }
-
     @AfterClass
     public void tearDown() {
         if (webDriver != null) {
             webDriver.quit();
         }
     }
-    @Test
-    public void validLoginTest() throws InterruptedException {
-        // Use non-static methods
-        launcherPage.enterLoginDetails("standard_user", "secret_sauce");
+    @DataProvider(name = "loginData")
+    public Object[][] loginDataProvider() {
+        return new Object[][] {
+                {"standard_user", "invalid_password", "Epic sadface: Username and password do not match any user in this service"}, // Valid username, invalid password
+                {"invalid_user", "secret_sauce", "Epic sadface: Username and password do not match any user in this service"}, // Invalid username, valid password
+                {"invalid_user", "invalid_password", "Epic sadface: Username and password do not match any user in this service"}, // Invalid username, invalid password
+                {"standard_user", "secret_sauce", "Swag Labs"} // Valid username, valid password
+        };
+    }
+
+    @Test(dataProvider = "loginData")
+    public void loginTest(String username, String password, String expectedMessage) {
+        launcherPage.enterLoginDetails(username, password);
         HomePage homePage = launcherPage.clickOnLoginButton();
-        Thread.sleep(3000);
-        // Assert using non-static methods from HomePage
-        String pageTitle = homePage.getPageTitle();
-        Assert.assertEquals(pageTitle, "Swag Labs", "Login failed or incorrect page title");
-        System.out.println("Github Actions Testing");
+
+        if (expectedMessage.equals("Swag Labs")) {
+            // Verify successful login
+            String pageTitle = homePage.getPageTitle();
+            Assert.assertEquals(pageTitle, expectedMessage, "Login failed or incorrect page title");
+        } else {
+            // Verify error message
+            String errorMessage = launcherPage.getLoginErrorMessage();
+            Assert.assertEquals(errorMessage, expectedMessage, "Unexpected error message");
+        }
     }
 }
+
